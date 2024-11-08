@@ -1,7 +1,4 @@
-package com.pluralsight.model.menuitem.toppings;
-
-import java.math.BigDecimal;
-import java.util.HashMap;
+package com.pluralsight.model.toppings;
 
 public class Sauce extends Topping {
     public Sauce(String toppingName) {

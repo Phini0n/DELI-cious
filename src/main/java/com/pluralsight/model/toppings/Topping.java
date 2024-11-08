@@ -1,4 +1,4 @@
-package com.pluralsight.model.menuitem.toppings;
+package com.pluralsight.model.toppings;
 
 public abstract class Topping {
     private String toppingName;
