@@ -1,7 +1,7 @@
-package com.pluralsight.model.sandwich;
+package com.pluralsight.model.menuitem.sandwich;
 
 import com.pluralsight.model.size.Size;
-import com.pluralsight.model.topping.Topping;
+import com.pluralsight.model.menuitem.sandwich.topping.Topping;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

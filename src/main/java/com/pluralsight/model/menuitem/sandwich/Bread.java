@@ -1,4 +1,4 @@
-package com.pluralsight.model.sandwich;
+package com.pluralsight.model.menuitem.sandwich;
 
 public enum Bread {
     WHITE("White"),

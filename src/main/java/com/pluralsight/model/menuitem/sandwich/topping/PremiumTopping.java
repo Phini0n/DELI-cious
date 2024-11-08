@@ -1,4 +1,4 @@
-package com.pluralsight.model.topping;
+package com.pluralsight.model.menuitem.sandwich.topping;
 
 import com.pluralsight.model.size.Size;
 

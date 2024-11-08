@@ -1,12 +1,11 @@
-package com.pluralsight.model;
+package com.pluralsight.model.menuitem;
 
 import com.pluralsight.model.size.Size;
-import com.pluralsight.model.size.SizeHelper;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-public class Drinks {
+public class Drink {
     private String flavor;
     private Size itemSize;
 
@@ -16,7 +15,7 @@ public class Drinks {
         put(Size.LARGE, new BigDecimal(3.00)); // 12"
     }};
 
-    public Drinks(String flavor, Size size) {
+    public Drink(String flavor, Size size) {
         this.flavor = flavor;
         this.itemSize = size;
     }
@@ -27,6 +26,6 @@ public class Drinks {
     }
 
     public BigDecimal getPrice() {
-        return SizeHelper.getSizedPrice(this.itemSize, SIZE_PRICES);
+        return SIZE_PRICES.get(this.itemSize);
     }
 }
