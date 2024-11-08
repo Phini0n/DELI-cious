@@ -1,4 +1,4 @@
-package com.pluralsight.model.toppings;
+package com.pluralsight.model.topping;
 
 import com.pluralsight.model.size.ISizeable;
 

@@ -4,5 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 
 public interface ISizeable {
-    BigDecimal getPrice(Size itemSize, HashMap<Size, BigDecimal> sizePrices);
+    BigDecimal getPrice(Size size);
+
+    void setSize(Size newSize);
 }
