@@ -1,6 +1,6 @@
 package com.pluralsight.model.topping;
 
-public abstract class Topping {
+public class Topping {
     private String toppingName;
 
     public Topping(String toppingName) {

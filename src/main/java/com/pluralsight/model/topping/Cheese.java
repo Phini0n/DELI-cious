@@ -1,31 +1,23 @@
 package com.pluralsight.model.topping;
 
 import com.pluralsight.model.size.Size;
+import com.pluralsight.model.size.SizeHelper;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class Cheese extends PremiumTopping {
-    private Size itemSize;
-
     private static final HashMap<Size, BigDecimal> SIZE_PRICES = new HashMap<Size, BigDecimal>() {{
-        put(Size.SMALL, new BigDecimal(1.00)); // 4"
-        put(Size.MEDIUM, new BigDecimal(2.00)); // 8"
-        put(Size.LARGE, new BigDecimal(3.00)); // 12"
+        put(Size.SMALL, new BigDecimal(.75)); // 4"
+        put(Size.MEDIUM, new BigDecimal(1.50)); // 8"
+        put(Size.LARGE, new BigDecimal(2.25)); // 12"
     }};
 
     public Cheese(String toppingName, Size size) {
-        super(toppingName);
-        this.itemSize = size;
+        super(toppingName, size);
     }
 
-    @Override
-    public BigDecimal getPrice(Size size) {
-        return Cheese.SIZE_PRICES.get(size);
-    }
-
-    @Override
-    public void setSize(Size newSize) {
-        this.itemSize = newSize;
+    public BigDecimal getPrice() {
+        return SizeHelper.getSizedPrice(this.size, SIZE_PRICES);
     }
 }
