@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Sandwich {
-    private Size itemSize;
+    private Size size;
     private boolean isToasted;
     private Bread bread;
     private List<Topping> toppings = new ArrayList<>();
@@ -20,8 +20,8 @@ public class Sandwich {
         put(Size.LARGE, new BigDecimal(8.50)); // 12"
     }};
 
-
-    public BigDecimal getPrice(Size size) {
+    // TODO: Include costs of all things inside sandwich.
+    public BigDecimal getPrice() {
         return Sandwich.SIZE_PRICES.get(size);
     }
 }

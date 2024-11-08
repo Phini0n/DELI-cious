@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class Drink {
     private String flavor;
     private Size itemSize;
+    private BigDecimal price;
 
     private static final HashMap<Size, BigDecimal> SIZE_PRICES = new HashMap<Size, BigDecimal>() {{
         put(Size.SMALL, new BigDecimal(2.00)); // 4"
@@ -18,6 +19,7 @@ public class Drink {
     public Drink(String flavor, Size size) {
         this.flavor = flavor;
         this.itemSize = size;
+        this.price = SIZE_PRICES.get(size);
     }
 
     @Override
@@ -26,6 +28,6 @@ public class Drink {
     }
 
     public BigDecimal getPrice() {
-        return SIZE_PRICES.get(this.itemSize);
+        return price;
     }
 }

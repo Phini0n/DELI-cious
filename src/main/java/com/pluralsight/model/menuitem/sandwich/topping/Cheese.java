@@ -14,9 +14,11 @@ public class Cheese extends PremiumTopping {
 
     public Cheese(String toppingName, Size size) {
         super(toppingName, size);
+        this.price = SIZE_PRICES.get(size);
     }
 
+    @Override
     public BigDecimal getPrice() {
-        return SizeHelper.getSizedPrice(this.size, SIZE_PRICES);
+        return price;
     }
 }
