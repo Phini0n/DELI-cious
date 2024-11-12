@@ -2,7 +2,9 @@ package com.pluralsight.control;
 
 import com.pluralsight.model.userinterface.MenuState;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class UserInterface {
     private static final Scanner scanner = new Scanner(System.in);
@@ -26,27 +28,37 @@ public class UserInterface {
 
     private void handleDisplay() {
         boolean firstRun = true;
+        menuState = MenuState.HOME_SCREEN;
         while (true) {
             if(firstRun) {
-                System.out.println("Hello, welcome to the DELIcious deli! \nHow can we help you?\n");
+                System.out.println("Hello, welcome to the DELI-cious deli program! \nHow can we help you?\n");
                 firstRun = false;
             }
-            System.out.println("Home Screen" +
-                    "1) New Order" +
-                    "0) Exit");
+
+            // Printing out the Home Screen menu state and its options.
+            System.out.println(menuState.getTitle());
+            System.out.print(menuState.getOptionsList());
 
             int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                default:
-                    System.out.println("Invalid entry.");
+            switch (menuState) {
+                case HOME_SCREEN -> handleHomeScreen(choice);
             }
+
+        }
+    }
+
+    private void handleHomeScreen(int choice) {
+        switch (choice) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 0:
+                System.out.println("Thank you! Exiting program. . .");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Invalid entry.");
         }
     }
 }
