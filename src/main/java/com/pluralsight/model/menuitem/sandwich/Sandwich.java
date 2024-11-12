@@ -15,9 +15,9 @@ public class Sandwich {
     private List<Topping> toppings = new ArrayList<>();
 
     private static final HashMap<Size, BigDecimal> SIZE_PRICES = new HashMap<Size, BigDecimal>() {{
-        put(Size.SMALL, new BigDecimal(5.50)); // 4"
-        put(Size.MEDIUM, new BigDecimal(7.00)); // 8"
-        put(Size.LARGE, new BigDecimal(8.50)); // 12"
+        put(Size.SMALL, new BigDecimal("5.50")); // 4"
+        put(Size.MEDIUM, new BigDecimal("7.00")); // 8"
+        put(Size.LARGE, new BigDecimal("8.50")); // 12"
     }};
 
     // TODO: Include costs of all things inside sandwich.

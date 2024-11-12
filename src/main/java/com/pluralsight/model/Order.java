@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Order {
-    private LocalDateTime dateTime;
-    private List<Sandwich> sandwiches;
-    private List<Drink> drinks;
-    private List<Chips> chips;
+    private final LocalDateTime dateTime;
+    private final List<Sandwich> sandwiches;
+    private final List<Drink> drinks;
+    private final List<Chips> chips;
 
     public Order(LocalDateTime dateTime, List<Sandwich> sandwiches, List<Drink> drinks, List<Chips> chips) {
         this.dateTime = dateTime;
