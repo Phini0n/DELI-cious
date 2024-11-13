@@ -14,14 +14,27 @@ public class Order {
     private List<Drink> drinks = new ArrayList<>();
     private List<Chips> chips = new ArrayList<>();
 
-    public Order(LocalDateTime dateTime, List<Sandwich> sandwiches, List<Drink> drinks, List<Chips> chips) {
-        this.dateTime = dateTime;
-        this.sandwiches = sandwiches;
-        this.drinks = drinks;
-        this.chips = chips;
+    public Order() {}
+
+    public void setTime() {
+        dateTime = LocalDateTime.now();
     }
 
-    public Order() {
+    public void addSandwich(Sandwich sandwich) {
+        this.sandwiches.add(sandwich);
+    }
 
+    public void addChips(Chips chips) {
+        this.chips.add(chips);
+    }
+
+    public void addDrink(Drink drink) {
+        this.drinks.add(drink);
+    }
+
+    public void orderClear() {
+        this.sandwiches.clear();
+        this.drinks.clear();
+        this.chips.clear();
     }
 }
