@@ -2,11 +2,13 @@ package com.pluralsight.control;
 
 import com.pluralsight.model.Order;
 import com.pluralsight.model.userinterface.MenuState;
+import com.pluralsight.view.Display;
 
 import java.util.Scanner;
 
 public class OrderController {
-    private static final Scanner scanner = new Scanner(System.in);
+    private Order order;
+    private Display display;
 
     private MenuState menuState;
 
@@ -15,7 +17,8 @@ public class OrderController {
      * init() initializes the order used within the following method(s).
      */
     private void init(){
-        Order order = new Order();
+        order = new Order();
+        display = new Display();
     }
 
     public void display() {
@@ -31,16 +34,13 @@ public class OrderController {
 
         while (true) {
             if(firstRun) {
-                System.out.println("Hello, welcome to the DELI-cious deli program! \nHow can we help you?\n");
+                display.showMessage("Hello, welcome to the DELI-cious deli program! \nHow can we help you?");
                 firstRun = false;
             }
 
-            // Printing out the Home Screen menu state and its options.
-            System.out.println(menuState.getTitle());
-            System.out.println(menuState.getOptionsList());
-            System.out.print("Enter: ");
+            display.showMenu(menuState);
 
-            int choice = scanner.nextInt();
+            int choice = display.getUserChoice();
             switch (menuState) {
                 case HOME_SCREEN -> handleHomeScreen(choice);
                 case ORDER_SCREEN -> handleOrderScreen(choice);
@@ -54,54 +54,59 @@ public class OrderController {
                 menuState = MenuState.ORDER_SCREEN;
                 break;
             case 0: // Exit
-                System.out.println("Thank you! Exiting program. . .");
+                display.showMessage("Thank you! Exiting program. . .");
                 System.exit(0);
                 break;
             default:
-                System.out.println("Invalid entry.");
+                display.showMessage("Invalid entry.");
         }
     }
 
     private void handleOrderScreen(int choice) {
         switch (choice) {
-            case 1: // Add Sandwich
+            case 1: // Add Signature Sandwich
                 break;
-            case 2: // Add Drink
+            case 2: // Add New Sandwich
                 break;
-            case 3: // Add Chips
+            case 3: // Add Drink
+                break;
+            case 4: // Add Chips
                 break;
 
-            case 4: // Checkout
-                System.out.println("Are you ready to checkout and create a receipt? (y/n)");
-                System.out.print("Enter: ");
-                scanner.nextLine(); // Clearing buffer
-                switch (scanner.nextLine().toLowerCase()) {
+            case 5: // Checkout
+                // TODO: SHOW ORDER DETAILS AND PRICE
+                display.showMessageLine("Are you ready to checkout and create a receipt? (y/n)");
+                display.showMessage("Enter: ");
+                switch (display.getUserConfirmation()) {
                     case "y":
                         // TODO: CREATE RECEIPT HERE, INCLUDE FILE LOCATION
-                        System.out.println("Your receipt was created in: ");
+                        display.showMessage("Your receipt was created in: ");
+                        break;
                     case "n":
                         // TODO: DELETE ORDER HERE
-                        System.out.println("Deleted order, returning to order menu . . .");
+                        display.showMessage("Deleted order, returning to home screen . . .");
+                        menuState = MenuState.HOME_SCREEN;
+                        break;
                 }
                 break;
 
             case 0: // Cancel Order
-                System.out.println("Are you sure you want to cancel your order? (y/n)");
-                System.out.print("Enter: ");
-                scanner.nextLine(); // Clearing buffer
-                switch (scanner.nextLine().toLowerCase()) {
+                display.showMessageLine("Are you sure you want to cancel your order and return to the Home Screen? (y/n)");
+                display.showMessage("Enter: ");
+                switch (display.getUserConfirmation()) {
                     case "y":
-                        System.out.println("Returning to order menu . . .");
+                        // TODO: DELETE ORDER HERE
+                        display.showMessage("\nReturning to home menu . . .");
                         menuState = MenuState.HOME_SCREEN;
                         break;
                     case "n":
-                        System.out.println("Your order may resume.");
+                        display.showMessage("Your order may resume.");
                         break;
                 }
                 break;
 
             default:
-                System.out.println("Invalid entry.");
+                display.showMessage("Invalid entry.");
         }
     }
 
