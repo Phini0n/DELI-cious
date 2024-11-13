@@ -1,22 +1,21 @@
 package com.pluralsight.control;
 
+import com.pluralsight.model.Order;
 import com.pluralsight.model.userinterface.MenuState;
 
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
-public class UserInterface {
+public class OrderController {
     private static final Scanner scanner = new Scanner(System.in);
 
     private MenuState menuState;
 
 
     /**
-     * init() initializes the variables used within the display method(s).
+     * init() initializes the order used within the following method(s).
      */
     private void init(){
-
+        Order order = new Order();
     }
 
     public void display() {
@@ -71,8 +70,21 @@ public class UserInterface {
                 break;
             case 3: // Add Chips
                 break;
+
             case 4: // Checkout
+                System.out.println("Are you ready to checkout and create a receipt? (y/n)");
+                System.out.print("Enter: ");
+                scanner.nextLine(); // Clearing buffer
+                switch (scanner.nextLine().toLowerCase()) {
+                    case "y":
+                        // TODO: CREATE RECEIPT HERE, INCLUDE FILE LOCATION
+                        System.out.println("Your receipt was created in: ");
+                    case "n":
+                        // TODO: DELETE ORDER HERE
+                        System.out.println("Deleted order, returning to order menu . . .");
+                }
                 break;
+
             case 0: // Cancel Order
                 System.out.println("Are you sure you want to cancel your order? (y/n)");
                 System.out.print("Enter: ");
@@ -87,8 +99,17 @@ public class UserInterface {
                         break;
                 }
                 break;
+
             default:
                 System.out.println("Invalid entry.");
         }
+    }
+
+    private void processDrinkRequest() {
+
+    }
+
+    private void processSandwichRequest() {
+
     }
 }

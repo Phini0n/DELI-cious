@@ -1,4 +1,4 @@
-package com.pluralsight.service;
+package com.pluralsight.control;
 
 public class ToppingService {
 }
