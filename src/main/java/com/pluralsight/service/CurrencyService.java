@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Formats a BigDecimal value into a USD format.
+ */
 public class CurrencyService {
     private NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
 

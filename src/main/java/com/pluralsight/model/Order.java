@@ -33,6 +33,7 @@ public class Order {
     }
 
     public void orderClear() {
+        this.dateTime = null;
         this.sandwiches.clear();
         this.drinks.clear();
         this.chips.clear();
