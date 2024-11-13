@@ -16,7 +16,7 @@ public class Drink {
         put(Size.LARGE, new BigDecimal("3.00")); // 12"
     }};
 
-    public Drink(String flavor, Size size) {
+    public Drink(Size size, String flavor) {
         this.flavor = flavor;
         this.itemSize = size;
         this.price = SIZE_PRICES.get(size);
@@ -24,7 +24,7 @@ public class Drink {
 
     @Override
     public String toString() {
-        return this.flavor;
+        return this.itemSize + " " + this.flavor;
     }
 
     public BigDecimal getPrice() {

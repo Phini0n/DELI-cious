@@ -10,4 +10,17 @@ public enum Size {
     Size(String sizeName) {
         this.sizeName = sizeName;
     }
+
+    public String getSize() {
+        return this.sizeName;
+    }
+
+    public static Size fromString(String text) {
+        for (Size s : Size.values()) {
+            if (s.sizeName.equalsIgnoreCase(text)) {
+                return s;
+            }
+        }
+        return null;
+    }
 }

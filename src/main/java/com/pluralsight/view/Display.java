@@ -22,11 +22,11 @@ public class Display {
         System.out.print("Enter: ");
     }
 
-    public int getUserChoice() {
+    public int getUserInt() {
         return scanner.nextInt();
     }
 
-    public String getUserConfirmation() {
+    public String getUserString() {
         scanner.nextLine(); // Clearing buffer
         return scanner.nextLine().toLowerCase();
     }

@@ -38,4 +38,14 @@ public class Order {
         this.drinks.clear();
         this.chips.clear();
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "dateTime=" + dateTime +
+                ", sandwiches=" + sandwiches +
+                ", drinks=" + drinks +
+                ", chips=" + chips +
+                '}';
+    }
 }
