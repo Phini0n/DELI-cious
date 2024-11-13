@@ -4,8 +4,6 @@ import com.pluralsight.model.Order;
 import com.pluralsight.model.userinterface.MenuState;
 import com.pluralsight.view.Display;
 
-import java.util.Scanner;
-
 public class OrderController {
     private Order order;
     private Display display;
@@ -34,7 +32,7 @@ public class OrderController {
 
         while (true) {
             if(firstRun) {
-                display.showMessage("Hello, welcome to the DELI-cious deli program! \nHow can we help you?");
+                display.showMessage("\nHello, welcome to the DELI-cious deli program!\n");
                 firstRun = false;
             }
 
@@ -58,55 +56,33 @@ public class OrderController {
                 System.exit(0);
                 break;
             default:
-                display.showMessage("Invalid entry.");
+                display.showMessageLine("\nInvalid entry, returning to home screen..");
         }
     }
 
     private void handleOrderScreen(int choice) {
         switch (choice) {
+
             case 1: // Add Signature Sandwich
                 break;
-            case 2: // Add New Sandwich
+            case 2: // Add Custom Sandwich
+                processCustomSandwichRequest();
                 break;
             case 3: // Add Drink
+                processDrinkRequest();
                 break;
             case 4: // Add Chips
+                processChipsRequest();
                 break;
-
             case 5: // Checkout
-                // TODO: SHOW ORDER DETAILS AND PRICE
-                display.showMessageLine("Are you ready to checkout and create a receipt? (y/n)");
-                display.showMessage("Enter: ");
-                switch (display.getUserConfirmation()) {
-                    case "y":
-                        // TODO: CREATE RECEIPT HERE, INCLUDE FILE LOCATION
-                        display.showMessage("Your receipt was created in: ");
-                        break;
-                    case "n":
-                        // TODO: DELETE ORDER HERE
-                        display.showMessage("Deleted order, returning to home screen . . .");
-                        menuState = MenuState.HOME_SCREEN;
-                        break;
-                }
+                processCheckoutRequest();
                 break;
-
             case 0: // Cancel Order
-                display.showMessageLine("Are you sure you want to cancel your order and return to the Home Screen? (y/n)");
-                display.showMessage("Enter: ");
-                switch (display.getUserConfirmation()) {
-                    case "y":
-                        // TODO: DELETE ORDER HERE
-                        display.showMessage("\nReturning to home menu . . .");
-                        menuState = MenuState.HOME_SCREEN;
-                        break;
-                    case "n":
-                        display.showMessage("Your order may resume.");
-                        break;
-                }
+                processCancelRequest();
                 break;
 
             default:
-                display.showMessage("Invalid entry.");
+                display.showMessageLine("\nInvalid entry, returning to order screen.");
         }
     }
 
@@ -114,7 +90,47 @@ public class OrderController {
 
     }
 
-    private void processSandwichRequest() {
+    private void processCustomSandwichRequest() {
 
+    }
+
+    private void processChipsRequest() {
+
+    }
+
+    private void processCheckoutRequest() {
+        display.showMessage("\nInsert Order Stuff Here."); // TODO: SHOW ORDER DETAILS AND PRICE
+        display.showMessageLine("\n1) Confirm Order\n" +
+                "0) Return to Order Menu");
+        display.showMessage("\nEnter: ");
+        switch (display.getUserChoice()) {
+            case 1:
+                // TODO: CREATE RECEIPT HERE, INCLUDE FILE LOCATION
+                display.showMessageLine("Your receipt was created in: ");
+                break;
+            case 0:
+                break;
+            default:
+                display.showMessageLine("\nInvalid entry, returning to order screen.");
+                break;
+        }
+    }
+
+    private void processCancelRequest() {
+        display.showMessageLine("\nAre you sure you want to cancel your order and return to the Home Screen? (y/n)");
+        display.showMessage("\nEnter: ");
+        switch (display.getUserConfirmation()) {
+            case "y":
+                // TODO: DELETE ORDER HERE
+                display.showMessage("\nReturning to home menu . . .");
+                menuState = MenuState.HOME_SCREEN;
+                break;
+            case "n":
+                display.showMessageLine("\nYour order may resume.");
+                break;
+            default:
+                display.showMessageLine("\nInvalid entry, returning to order screen.");
+                break;
+        }
     }
 }

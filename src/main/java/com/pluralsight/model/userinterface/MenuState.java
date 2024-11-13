@@ -2,7 +2,7 @@ package com.pluralsight.model.userinterface;
 
 public enum MenuState {
     HOME_SCREEN("Home Screen", new String[] {"New Order", "Exit"}),
-    ORDER_SCREEN("Order Screen", new String[] {"Add Signature Sandwich", "Add New Sandwich",
+    ORDER_SCREEN("Order Screen", new String[] {"Add Signature Sandwich", "Add Custom Sandwich",
             "Add Drink", "Add Chips", "Checkout", "Cancel Order"});
 
     private final String title;
