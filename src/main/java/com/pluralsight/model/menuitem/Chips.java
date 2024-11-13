@@ -6,6 +6,10 @@ public class Chips {
     private String type;
     private static final BigDecimal PRICE = new BigDecimal(1.50);
 
+    public Chips(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return type;

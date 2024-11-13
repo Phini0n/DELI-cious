@@ -1,6 +1,7 @@
 package com.pluralsight.control;
 
 import com.pluralsight.model.Order;
+import com.pluralsight.model.menuitem.Chips;
 import com.pluralsight.model.menuitem.Drink;
 import com.pluralsight.model.size.Size;
 import com.pluralsight.model.userinterface.MenuState;
@@ -105,16 +106,21 @@ public class OrderController {
         }
     }
 
+    private void processChipsRequest() {
+        display.showMessageLine("Please enter a flavor of chips you'd like.");
+        display.showMessage("\nEnter: ");
+
+        String entry = display.getUserString().trim();
+
+        order.addChips(new Chips(entry));
+    }
+
     private void processCustomSandwichRequest() {
 
     }
 
-    private void processChipsRequest() {
-
-    }
-
     private void processCheckoutRequest() {
-        display.showMessage(order.toString()); // TODO: SHOW ORDER DETAILS AND PRICE
+        display.showMessageLine(order.toString()); // TODO: SHOW ORDER DETAILS AND PRICE
         display.showMessageLine("\n1) Confirm Order\n" +
                 "0) Return to Order Menu");
         display.showMessage("\nEnter: ");
