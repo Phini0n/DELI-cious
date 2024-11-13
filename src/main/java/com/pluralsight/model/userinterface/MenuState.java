@@ -27,7 +27,8 @@ public enum MenuState {
             // If we are reaching the last option/index, it becomes zero. Else, add 1 to display it.
             int displayIndex = (i == this.getOptions().length - 1) ? 0 : i + 1;
             stringBuilder.append(displayIndex).append(") ").append(this.getOptions()[i]);
-            if(!(i == this.getOptions().length)) { stringBuilder.append(System.lineSeparator()); }
+            // If we are not at the end, append a break
+            if(!(i == this.getOptions().length)) { stringBuilder.append("\n"); }
         }
         return stringBuilder.toString();
     }
