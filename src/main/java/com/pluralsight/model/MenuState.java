@@ -3,7 +3,9 @@ package com.pluralsight.model;
 public enum MenuState {
     HOME_SCREEN("Home Screen", new String[] {"New Order", "Exit"}),
     ORDER_SCREEN("Order Screen", new String[] {"Add Signature Sandwich", "Add Custom Sandwich",
-            "Add Drink", "Add Chips", "Checkout", "Cancel Order"});
+            "Add Drink", "Add Chips", "Checkout", "Cancel Order"}),
+    SANDWICH_SCREEN("Custom Sandwich Screen", new String[] {"Bread Type", "Sandwich Size", "Toppings" }),
+    TOPPINGS_SCREEN("Toppings Screen", new String[] {"Meat", "Cheese", "Other Toppings", "Sauces"});
 
     private final String title;
     private final String[] options;

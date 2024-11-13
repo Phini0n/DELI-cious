@@ -30,4 +30,8 @@ public class Display {
         scanner.nextLine(); // Clearing buffer
         return scanner.nextLine().toLowerCase();
     }
+
+    public void clearScreen() {
+        System.out.print("\033[2J");
+    }
 }

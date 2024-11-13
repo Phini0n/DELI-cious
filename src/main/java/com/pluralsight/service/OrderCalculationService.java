@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * Formats a BigDecimal value into a USD format.
+ * Calculates cost of an order and displays it in USD format.
  */
 public class OrderCalculationService {
     private NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);

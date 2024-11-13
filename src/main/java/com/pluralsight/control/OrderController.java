@@ -67,6 +67,7 @@ public class OrderController {
         switch (choice) {
 
             case 1: // Add Signature Sandwich
+                processSignatureSandwichRequest();
                 break;
             case 2: // Add Custom Sandwich
                 processCustomSandwichRequest();
@@ -153,5 +154,9 @@ public class OrderController {
                 display.showMessageLine("\nInvalid entry, returning to order screen.");
                 break;
         }
+    }
+
+    private void processSignatureSandwichRequest() {
+
     }
 }

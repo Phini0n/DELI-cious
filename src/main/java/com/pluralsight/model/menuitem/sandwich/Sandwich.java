@@ -1,7 +1,7 @@
 package com.pluralsight.model.menuitem.sandwich;
 
 import com.pluralsight.model.Size;
-import com.pluralsight.model.menuitem.sandwich.topping.Topping;
+import com.pluralsight.model.menuitem.sandwich.toppings.Topping;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,6 +19,13 @@ public class Sandwich {
         put(Size.MEDIUM, new BigDecimal("7.00")); // 8"
         put(Size.LARGE, new BigDecimal("8.50")); // 12"
     }};
+
+    public Sandwich(Size size, boolean isToasted, Bread bread, ArrayList<Topping> toppings) {
+        this.size = size;
+        this.isToasted = isToasted;
+        this.bread = bread;
+        this.toppings = toppings;
+    }
 
     // TODO: Include costs of all things inside sandwich.
     public BigDecimal getPrice() {
