@@ -3,8 +3,8 @@ package com.pluralsight.control;
 import com.pluralsight.model.Order;
 import com.pluralsight.model.menuitem.Chips;
 import com.pluralsight.model.menuitem.Drink;
-import com.pluralsight.model.size.Size;
-import com.pluralsight.model.userinterface.MenuState;
+import com.pluralsight.model.Size;
+import com.pluralsight.model.MenuState;
 import com.pluralsight.view.Display;
 
 public class OrderController {

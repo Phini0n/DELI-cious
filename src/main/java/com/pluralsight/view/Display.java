@@ -1,6 +1,6 @@
 package com.pluralsight.view;
 
-import com.pluralsight.model.userinterface.MenuState;
+import com.pluralsight.model.MenuState;
 
 import java.util.Scanner;
 

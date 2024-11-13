@@ -1,6 +1,6 @@
 package com.pluralsight.model.menuitem;
 
-import com.pluralsight.model.size.Size;
+import com.pluralsight.model.Size;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

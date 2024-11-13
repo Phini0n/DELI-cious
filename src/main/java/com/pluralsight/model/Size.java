@@ -1,4 +1,4 @@
-package com.pluralsight.model.size;
+package com.pluralsight.model;
 
 public enum Size {
     SMALL("Small"),

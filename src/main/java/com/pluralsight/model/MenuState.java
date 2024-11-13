@@ -1,4 +1,4 @@
-package com.pluralsight.model.userinterface;
+package com.pluralsight.model;
 
 public enum MenuState {
     HOME_SCREEN("Home Screen", new String[] {"New Order", "Exit"}),
