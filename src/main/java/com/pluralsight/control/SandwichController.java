@@ -2,7 +2,6 @@ package com.pluralsight.control;
 
 import com.pluralsight.model.menustate.MenuState;
 import com.pluralsight.model.Size;
-import com.pluralsight.model.menuitem.sandwich.Bread;
 import com.pluralsight.model.menuitem.sandwich.Sandwich;
 import com.pluralsight.model.menuitem.sandwich.toppings.Topping;
 import com.pluralsight.model.menustate.Observer;
@@ -23,7 +22,7 @@ public class SandwichController implements Observer {
     private boolean isToasted;
     private boolean isCancelled; // Determines if the initialize process will continue, or not.
     private boolean isSignature; // Determines if this Sandwich is signature, or not.
-    private Bread bread;
+    private String bread;
     private List<Topping> toppings = new ArrayList<Topping>();
     private List<Object> cart = new ArrayList<>();
 
@@ -138,7 +137,7 @@ public class SandwichController implements Observer {
                         isCancelled = true;
                         return;
                     }
-                    bread = Bread.fromString(input);
+                    bread = input;
                 } catch (Exception e) {
                     display.showMessageLine("\nError "  + e + " occurred with your input. Please try again, or enter 0 to exit.");
                 }
