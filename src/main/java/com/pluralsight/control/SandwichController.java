@@ -24,7 +24,6 @@ public class SandwichController implements Observer {
     private boolean isSignature; // Determines if this Sandwich is signature, or not.
     private String bread;
     private List<Topping> toppings = new ArrayList<Topping>();
-    private List<Object> cart = new ArrayList<>();
 
     public SandwichController (MenuStateManager stateManager) {
         this.stateManager = stateManager;
@@ -132,12 +131,31 @@ public class SandwichController implements Observer {
                 display.showMessage("Enter: ");
                 try {
                     String input = display.getUserString();
-                    if (input.equals("0")) {
-                        display.showMessage("Exiting Sandwich Building interface. . . ");
-                        isCancelled = true;
-                        return;
+                    switch (input.toLowerCase()) {
+                        case "white":
+                            display.showMessageLine("The bread type is now white.");
+                            bread = input;
+                            return;
+                        case "wheat":
+                            display.showMessageLine("The bread type is now wheat.");
+                            bread = input;
+                            return;
+                        case "rye":
+                            display.showMessageLine("The bread type is now rye.");
+                            bread = input;
+                            return;
+                        case "wrap":
+                            display.showMessageLine("The bread type is now wrap.");
+                            bread = input;
+                            return;
+                        case "0":
+                            display.showMessage("Exiting Sandwich Building interface. . . ");
+                            isCancelled = true;
+                            return;
+                        default:
+                            display.showMessageLine("Invalid input. Please try again, or enter 0 to exit.");
+                            break;
                     }
-                    bread = input;
                 } catch (Exception e) {
                     display.showMessageLine("\nError "  + e + " occurred with your input. Please try again, or enter 0 to exit.");
                 }
@@ -156,7 +174,7 @@ public class SandwichController implements Observer {
 
 
         return "Your current sandwich:\n" +
-                sandwichSize.sandwichSizeName + signatureStatus +  toastedStatus + bread.breadType +
+                sandwichSize.sandwichSizeName + signatureStatus +  toastedStatus + bread +
                 " with " + allToppings.toString();
     }
 

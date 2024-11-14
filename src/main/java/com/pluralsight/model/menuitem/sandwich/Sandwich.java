@@ -13,7 +13,7 @@ import java.util.Map;
 public class Sandwich implements IPriceable {
     private Size size;
     private boolean isToasted;
-    private Bread bread;
+    private String bread;
     private List<Topping> toppings = new ArrayList<>();
 
     private static final EnumMap<Size, BigDecimal> SIZE_PRICES = new EnumMap<>(Map.of(
@@ -22,7 +22,7 @@ public class Sandwich implements IPriceable {
             Size.LARGE, new BigDecimal("8.50")
     ));
 
-    public Sandwich(Size size, boolean isToasted, Bread bread, ArrayList<Topping> toppings) {
+    public Sandwich(Size size, boolean isToasted, String bread, ArrayList<Topping> toppings) {
         this.size = size;
         this.isToasted = isToasted;
         this.bread = bread;
