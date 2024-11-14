@@ -32,26 +32,72 @@ public class SandwichController implements Observer {
 
     // Using Custom Sandwich
     public void initializeSandwich() {
+        // First questions
         isCancelled = false;
         processSizeRequest();
         processIsToastedRequest();
         processBreadRequest();
-        if (isCancelled) {
-            display.showMessage("Sandwich process was cancelled. Returning to Order menu.");
+
+        while (true) {
+            stateManager.setMenuState(MenuState.SANDWICH_SCREEN);
+
+            if (isCancelled) {
+                display.showMessage("Sandwich process was cancelled. Returning to Order menu.");
+                return;
+            }
+
+            if (sandwichSize != null) {
+                display.showMessageLine(showCurrentSandwich());
+            }
+
+            display.showMenu(menuState);
+
+            int choice = display.getUserInt();
+
+            switch (menuState) {
+                case SANDWICH_SCREEN -> handleSandwichScreen(choice);
+                case TOPPINGS_SCREEN -> handleToppingsScreen(choice);
+            }
         }
     }
+
 
     // Using Signature Sandwich
     public void initializeSandwich(Sandwich sandwich) {
         // TODO: Implement this.
     }
 
-    private void handleSandwichScreen() {
-        stateManager.setMenuState(MenuState.SANDWICH_SCREEN);
+    private void handleSandwichScreen(int choice) {
+        switch (choice) {
+            case 1: // Bread Type
+                display.clearBuffer();
+                processBreadRequest();
+                processIsToastedRequest();
+                break;
+            case 2: // Sandwich Size
+                processSizeRequest();
+                break;
+            case 0: // Exit
+                display.showMessage("Thank you! Exiting program. . .");
+                System.exit(0);
+                break;
+            default:
+                display.showMessageLine("\nInvalid entry, returning to home screen..");
+        }
     }
 
-    public void handleToppingsScreen() {
-        stateManager.setMenuState(MenuState.TOPPINGS_SCREEN);
+    public void handleToppingsScreen(int choice) {
+        switch (choice) {
+            case 1: // New Order
+                update(MenuState.ORDER_SCREEN);
+                break;
+            case 0: // Exit
+                display.showMessage("Thank you! Exiting program. . .");
+                System.exit(0);
+                break;
+            default:
+                display.showMessageLine("\nInvalid entry, returning to home screen..");
+        }
     }
 
     private void processSizeRequest() {
@@ -163,18 +209,18 @@ public class SandwichController implements Observer {
         }
     }
 
-    public String showCurrentSandwich(ArrayList<Object> cart) {
+    public String showCurrentSandwich() {
         StringBuilder allToppings = new StringBuilder();
         for (Topping topping : toppings) {
             allToppings.append(topping).append(" ");
         }
 
         String toastedStatus = isToasted ? " toasted " : " ";
-        String signatureStatus = isSignature ? "Signature:  with" : " ";
+        String signatureStatus = isSignature ? "Signature:  with" : "";
 
 
-        return "Your current sandwich:\n" +
-                sandwichSize.sandwichSizeName + signatureStatus +  toastedStatus + bread +
+        return "\nYour current sandwich:\n" +
+                signatureStatus + sandwichSize.sandwichSizeName +  toastedStatus + bread +
                 " with " + allToppings.toString();
     }
 
