@@ -107,10 +107,10 @@ public class SandwichController implements Observer {
                 switch (input.toLowerCase()) {
                     case "y":
                         isToasted = true;
-                        break;
+                        return;
                     case "n":
                         isToasted = false;
-                        break;
+                        return;
                     case "0":
                         display.showMessage("Exiting Sandwich Building interface. . . ");
                         isCancelled = true;
