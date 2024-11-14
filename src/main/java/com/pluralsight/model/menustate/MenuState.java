@@ -4,8 +4,8 @@ public enum MenuState {
     HOME_SCREEN("Home Screen", new String[] {"New Order", "Exit"}),
     ORDER_SCREEN("Order Screen", new String[] {"Add Signature Sandwich", "Add Custom Sandwich",
             "Add Drink", "Add Chips", "Checkout", "Cancel Order"}),
-    SANDWICH_SCREEN("Sandwich Builder", new String[] {"Bread Type", "Sandwich Size", "Toppings" }),
-    TOPPINGS_SCREEN("Toppings Builder", new String[] {"Meat", "Cheese", "Other Toppings", "Sauces"});
+    SANDWICH_SCREEN("Sandwich Builder", new String[] {"Bread Type", "Sandwich Size", "Toppings", "Back" }),
+    TOPPINGS_SCREEN("Toppings Builder", new String[] {"Meat", "Cheese", "Other Toppings", "Sauces", "Back"});
 
     private final String title;
     private final String[] options;
