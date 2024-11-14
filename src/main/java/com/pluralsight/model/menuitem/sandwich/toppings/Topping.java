@@ -1,9 +1,11 @@
 package com.pluralsight.model.menuitem.sandwich.toppings;
 
+import com.pluralsight.model.menuitem.IPriceable;
+
 import java.math.BigDecimal;
 
-public class Topping {
-    private final String toppingName;
+public class Topping implements IPriceable {
+    private final String toppingName ;
 
     public Topping(String toppingName) {
         this.toppingName = toppingName;

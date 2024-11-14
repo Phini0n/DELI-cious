@@ -3,18 +3,19 @@ package com.pluralsight.model.menuitem;
 import com.pluralsight.model.Size;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.Map;
 
-public class Drink {
-    private String flavor;
-    private Size itemSize;
-    private BigDecimal price;
+public class Drink implements IPriceable {
+    private final String flavor;
+    private final Size itemSize;
+    private final BigDecimal price;
 
-    private static final HashMap<Size, BigDecimal> SIZE_PRICES = new HashMap<Size, BigDecimal>() {{
-        put(Size.SMALL, new BigDecimal("2.00")); // 4"
-        put(Size.MEDIUM, new BigDecimal("2.50")); // 8"
-        put(Size.LARGE, new BigDecimal("3.00")); // 12"
-    }};
+    private static final EnumMap<Size, BigDecimal> SIZE_PRICES = new EnumMap<>(Map.of(
+            Size.SMALL, new BigDecimal("2.00"),
+            Size.MEDIUM, new BigDecimal("2.50"),
+            Size.LARGE, new BigDecimal("3.00")
+    ));
 
     public Drink(Size size, String flavor) {
         this.flavor = flavor;

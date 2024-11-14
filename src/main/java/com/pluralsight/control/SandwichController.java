@@ -40,27 +40,11 @@ public class SandwichController {
     }
 
     private void handleSandwichScreen() {
-        display.showMessageLine("""
-                Sandwich Builder
-                1) Bread
-                2) Toppings
-                
-                Enter:\s
-                """);
+        display.showMenu(MenuState.SANDWICH_SCREEN);
     }
 
-    public Sandwich handleToppingsScreen() {
-        // Toppings
-        display.showMessageLine("""
-                Toppings Builder
-                1) Meat
-                2) Cheese
-                3) Other toppings
-                4) Sauces
-                
-                Enter:\s
-                """);
-        return null;
+    public void handleToppingsScreen() {
+        display.showMenu(MenuState.TOPPINGS_SCREEN);
     }
 
     private void processSizeRequest() {
