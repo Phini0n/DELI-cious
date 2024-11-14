@@ -7,8 +7,10 @@ import com.pluralsight.service.MenuStateManager;
 public class Main {
     public static void main(String[] args) {
         MenuStateManager stateManager = new MenuStateManager();
-        OrderController orderController = new OrderController(stateManager);
         SandwichController sandwichController = new SandwichController(stateManager);
+        OrderController orderController = new OrderController(stateManager, sandwichController);
+
         orderController.display();
+
     }
 }

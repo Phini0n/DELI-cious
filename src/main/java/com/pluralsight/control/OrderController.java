@@ -14,9 +14,11 @@ public class OrderController implements Observer {
     private Display display;
     private MenuState menuState;
     private final MenuStateManager stateManager;
+    private final SandwichController sandwichController;
 
-    public OrderController(MenuStateManager stateManager) {
+    public OrderController(MenuStateManager stateManager, SandwichController sandwichController) {
         this.stateManager = stateManager;
+        this.sandwichController = sandwichController;
         stateManager.addObserver(this);
     }
 
@@ -117,7 +119,7 @@ public class OrderController implements Observer {
                 String[] entry = input.split(" ");
 
                 if (entry.length == 2) {
-                    Size size = Size.fromString(entry[0]);
+                    Size size = Size.standardSizeFromString(entry[0]);
 
                     // Checking if size is correct
                     if (size != null) {
@@ -146,7 +148,7 @@ public class OrderController implements Observer {
     }
 
     private void processChipsRequest() {
-        display.showMessageLine("""
+        display.showMessage("""
                 Please enter any flavor of chips you'd like.
                 Enter 0 to stop ordering Chips.
                 
@@ -163,7 +165,7 @@ public class OrderController implements Observer {
     }
 
     private void processCustomSandwichRequest() {
-
+        sandwichController.initializeSandwich();
     }
 
     private void processCheckoutRequest() {
@@ -185,13 +187,14 @@ public class OrderController implements Observer {
     }
 
     private void processCancelRequest() {
+        display.clearBuffer();
         display.showMessageLine("\nAre you sure you want to cancel your order and return to the Home Screen? (y/n)");
         display.showMessage("\nEnter: ");
         switch (display.getUserString()) {
             case "y":
                 // TODO: DELETE ORDER HERE
-                display.showMessage("\nReturning to home menu . . .");
-                menuState = MenuState.HOME_SCREEN;
+                display.showMessageLine ("\nReturning to home menu . . .");
+                stateManager.setMenuState(MenuState.HOME_SCREEN);
                 break;
             case "n":
                 display.showMessageLine("\nYour order may resume.");

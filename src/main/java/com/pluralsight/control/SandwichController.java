@@ -18,10 +18,11 @@ public class SandwichController implements Observer {
     private MenuStateManager stateManager;
 
     // Sandwich Variables
-    Sandwich sandwich;
+    Sandwich finalSandwich;
     private Size sandwichSize;
     private boolean isToasted;
-    private boolean isCancelled; // Determines if the initalize process will continue, or not.
+    private boolean isCancelled; // Determines if the initialize process will continue, or not.
+    private boolean isSignature; // Determines if this Sandwich is signature, or not.
     private Bread bread;
     private List<Topping> toppings = new ArrayList<Topping>();
     private List<Object> cart = new ArrayList<>();
@@ -32,7 +33,7 @@ public class SandwichController implements Observer {
     }
 
     // Using Custom Sandwich
-    private void initializeSandwich() {
+    public void initializeSandwich() {
         isCancelled = false;
         processSizeRequest();
         processIsToastedRequest();
@@ -43,35 +44,48 @@ public class SandwichController implements Observer {
     }
 
     // Using Signature Sandwich
-    private void initializeSandwich(Sandwich sandwich) {
+    public void initializeSandwich(Sandwich sandwich) {
         // TODO: Implement this.
     }
 
     private void handleSandwichScreen() {
-        display.showMenu(MenuState.SANDWICH_SCREEN);
+        stateManager.setMenuState(MenuState.SANDWICH_SCREEN);
     }
 
     public void handleToppingsScreen() {
-        display.showMenu(MenuState.TOPPINGS_SCREEN);
+        stateManager.setMenuState(MenuState.TOPPINGS_SCREEN);
     }
 
     private void processSizeRequest() {
         if (!isCancelled) {
             display.showMessageLine("""
-                Enter your size (Small, Medium, Large):
+                Enter your size (4", 8", 12"):
                 Enter 0 to stop Sandwich Building.
                 
                 """);
+            display.clearBuffer();
             while (true) {
                 display.showMessage("Enter: ");
                 try {
-                    String input = display.getUserString();
-                    if (input.equals("0")) {
-                        display.showMessage("Exiting Sandwich Building interface. . . ");
-                        isCancelled = true;
-                        return;
+                    String input = display.getUserString().trim();
+
+                    if (input.isEmpty()) {
+                        display.showMessageLine("Input is empty. Please try again, or enter 0 to exit.");
+                    } else {
+                        Size size = Size.sandwichSizeFromString(input);
+
+                        if (input.equals("0")) {
+                            display.showMessageLine("Exiting Sandwich Building interface . . .");
+                            isCancelled = true;
+                            return;
+
+                        } else if (size != null) {
+                            sandwichSize = size;
+                            return;
+                        } else {
+                            display.showMessageLine("Our sizes are 4\", 8\", and 12\".");
+                        }
                     }
-                    sandwichSize = Size.fromString(input);
                 } catch (Exception e) {
                     display.showMessageLine("\nError "  + e + " occurred with your input. " +
                             "Please try again, or enter 0 to exit.");
@@ -133,7 +147,18 @@ public class SandwichController implements Observer {
     }
 
     public String showCurrentSandwich(ArrayList<Object> cart) {
-        return "";
+        StringBuilder allToppings = new StringBuilder();
+        for (Topping topping : toppings) {
+            allToppings.append(topping).append(" ");
+        }
+
+        String toastedStatus = isToasted ? " toasted " : " ";
+        String signatureStatus = isSignature ? "Signature:  with" : " ";
+
+
+        return "Your current sandwich:\n" +
+                sandwichSize.sandwichSizeName + signatureStatus +  toastedStatus + bread.breadType +
+                " with " + allToppings.toString();
     }
 
     @Override
