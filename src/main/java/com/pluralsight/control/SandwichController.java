@@ -1,18 +1,21 @@
 package com.pluralsight.control;
 
-import com.pluralsight.model.MenuState;
+import com.pluralsight.model.menustate.MenuState;
 import com.pluralsight.model.Size;
 import com.pluralsight.model.menuitem.sandwich.Bread;
 import com.pluralsight.model.menuitem.sandwich.Sandwich;
 import com.pluralsight.model.menuitem.sandwich.toppings.Topping;
+import com.pluralsight.model.menustate.Observer;
+import com.pluralsight.service.MenuStateManager;
 import com.pluralsight.view.Display;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SandwichController {
+public class SandwichController implements Observer {
     private Display display = new Display();
     private MenuState menuState;
+    private MenuStateManager stateManager;
 
     // Sandwich Variables
     Sandwich sandwich;
@@ -22,6 +25,11 @@ public class SandwichController {
     private Bread bread;
     private List<Topping> toppings = new ArrayList<Topping>();
     private List<Object> cart = new ArrayList<>();
+
+    public SandwichController (MenuStateManager stateManager) {
+        this.stateManager = stateManager;
+        stateManager.addObserver(this);
+    }
 
     // Using Custom Sandwich
     private void initializeSandwich() {
@@ -126,6 +134,11 @@ public class SandwichController {
 
     public String showCurrentSandwich(ArrayList<Object> cart) {
         return "";
+    }
+
+    @Override
+    public void update(MenuState menuState) {
+        this.menuState = menuState;
     }
 
 //    public Sandwich createSandwich(Sandwich sandwich) {

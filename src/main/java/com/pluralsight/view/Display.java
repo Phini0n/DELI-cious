@@ -1,6 +1,6 @@
 package com.pluralsight.view;
 
-import com.pluralsight.model.MenuState;
+import com.pluralsight.model.menustate.MenuState;
 
 import java.util.Scanner;
 
@@ -27,11 +27,10 @@ public class Display {
     }
 
     public String getUserString() {
-        scanner.nextLine(); // Clearing buffer
         return scanner.nextLine().toLowerCase();
     }
 
-    public void clearScreen() {
-        System.out.print("\033[2J");
+    public void clearBuffer() {
+        scanner.nextLine();
     }
 }
