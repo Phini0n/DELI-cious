@@ -1,0 +1,4 @@
+Order Date/Time: 2024-11-15T07:29:48.001849500
+Drinks:
+  coke - Price: $2.00
+Total Price: $2.00
