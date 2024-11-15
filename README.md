@@ -1,4 +1,6 @@
 # DELI-cious Command Line Interface
+## Class Diagram
+![Ledger Menu](imgs/diagram.PNG)
 
 ## Project Description
 
@@ -58,22 +60,22 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Demo
 ### The Order Screen and Sandwich Initialization
-![Ledger Menu](imgs/step1.PNG)
+![Sandwich Init](imgs/step1.PNG)
 
 ### Toppings Builder Menu
-![Making a Payment](imgs/Step2.PNG)
+![Toppings Builder](imgs/Step2.PNG)
 
 ### Ordering a Drink
-![Searching by Vendor](imgs/Step3.PNG)
+![Drink Order](imgs/Step3.PNG)
 
 ### Ordering Chips
-![Searching by Vendor](imgs/step4.PNG)
+![Chips Order](imgs/step4.PNG)
 
 ### Preview of Receipt
-![Searching by Vendor](imgs/step5.PNG)
+![Receipt Preview](imgs/step5.PNG)
 
 ### Receipt Creation
-![Searching by Vendor](imgs/step6.PNG)
+![Receipt Creation](imgs/step6.PNG)
 
 ## Unique Feature: Model View Controller
 I tried to force myself to learn about Model View Controller and Services as I worked on this project.
