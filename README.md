@@ -84,16 +84,17 @@ I tried to force myself to learn about Model View Controller and Services as I w
 
 ## Future Work
 
-- Adapt table visual to allow for more characters per cell
-- Custom Search
+- Add a Remove item feature
+- Implement Singleton pattern for ToppingService
 - Inline Comments and Documentation
 
 ## Resources
 
 - [BigDecimal Documentation](https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html)
-- [Year Documentation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Year.html)
-- [YearMonth Documentation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/YearMonth.html)
-- [Center Text Function (Stack Overflow)](https://stackoverflow.com/questions/8154366/how-to-center-a-string-using-string-format)
+- [StackOverflow](https://stackoverflow.com/a/2965252)
+- [Observer Pattern (even though I couldn't implement it)](https://www.geeksforgeeks.org/observer-pattern-set-1-introduction/)
+- [MVC Research 1](https://www.youtube.com/watch?v=DUg2SWWK18I)
+- [MVC Research 2](https://www.youtube.com/watch?v=FYOMpzia_Dk)
 
 
 ## Thanks
