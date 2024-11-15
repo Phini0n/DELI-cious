@@ -14,21 +14,23 @@ public class FileManagementService {
     // TODO: SET FILENAME FORMAT TO yyyyMMdd-hhmmss.txt
     private LocalDateTime timestamp;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
-    private File FILE = new File("receipts/");
+    private final File FILE_LOCATION = new File("receipts/");
 
     public String saveOrder(Order order) {
         order.setTime();
-        String fileName = order.getTime().format(formatter);
+        String fileName = order.getTime().format(formatter) + ".txt";
+        File file = new File(FILE_LOCATION, fileName);
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE + fileName));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
             bufferedWriter.write(order.toString());
+            bufferedWriter.close();
         } catch (Exception e) {
             return "Error " + e;
         }
-        return "Receipt creation successful in file location: " + getFileLocation();
+        return "\nReceipt creation successful in file location: " + getFileLocation();
     }
 
     public String getFileLocation() {
-        return FILE.getAbsolutePath();
+        return FILE_LOCATION.getAbsolutePath();
     }
 }

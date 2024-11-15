@@ -4,7 +4,10 @@ import com.pluralsight.model.Order;
 import com.pluralsight.model.menuitem.Chips;
 import com.pluralsight.model.menuitem.Drink;
 import com.pluralsight.model.menuitem.sandwich.Sandwich;
+import com.pluralsight.model.menuitem.sandwich.SignatureSandwich;
 import com.pluralsight.model.menustate.MenuState;
+import com.pluralsight.service.FileManagementService;
+import com.pluralsight.service.SignatureSandwichesService;
 import com.pluralsight.view.Display;
 
 public class OrderController {
@@ -74,7 +77,7 @@ public class OrderController {
     }
 
     private void processCheckout() {
-        display.showMessageLine(order.toString()); // TODO: SHOW ORDER DETAILS AND PRICE
+        display.showMessageLine(order.toString());
         display.showMessageLine("""
 
                 1) Confirm Order
@@ -82,8 +85,8 @@ public class OrderController {
         display.showMessage("\nEnter: ");
         switch (display.getUserInt()) {
             case 1:
-                // TODO: CREATE RECEIPT HERE, INCLUDE FILE LOCATION
-                display.showMessageLine("Your receipt was created in: ");
+                FileManagementService fms = new FileManagementService();
+                display.showMessageLine(fms.saveOrder(order));
                 break;
             case 0:
                 menuState = MenuState.ORDER_SCREEN;
@@ -100,7 +103,6 @@ public class OrderController {
         display.clearBuffer();
         switch (display.getUserString()) {
             case "y":
-                // TODO: DELETE ORDER HERE
                 display.showMessageLine ("\nReturning to home menu . . .");
                 order.orderClear();
                 menuState = MenuState.HOME_SCREEN;
@@ -124,7 +126,7 @@ public class OrderController {
     }
 
     private void processSignatureSandwich() {
-
+        // TODO: NYI
     }
 
     private void exitProgram() {

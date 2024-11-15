@@ -284,7 +284,7 @@ public class SandwichController {
     }
 
     private void removeToppingsByName(String searchedTopping) {
-        toppings.removeIf(topping -> topping.getToppingName().equals(searchedTopping));
+        toppings.removeIf(topping -> topping.getToppingName().trim().equalsIgnoreCase(searchedTopping));
     }
 
     public Sandwich getFinalSandwich() {
