@@ -1,0 +1,8 @@
+Order Date/Time: 2024-11-15T07:35:38.341542300
+Sandwiches:
+  Sandwich: 4" Toasted white bread | Toppings: Steak - Price: $6.50
+Drinks:
+  cola - Price: $2.00
+Chips:
+  chips - Price: $1.50
+Total Price: $10.00

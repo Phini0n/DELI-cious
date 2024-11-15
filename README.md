@@ -57,18 +57,27 @@ Follow these steps to get your application running within IntelliJ IDEA:
 - Java 17 (Amazon Corretto 17.0.12)
 
 ## Demo
-### The Ledger Menu
-![Ledger Menu](imgs/LedgerProcess.PNG)
+### The Order Screen and Sandwich Initialization
+![Ledger Menu](imgs/step1.PNG)
 
-### Making a Payment in the Home Menu
-![Making a Payment](imgs/MakingPayment.PNG)
+### Toppings Builder Menu
+![Making a Payment](imgs/Step2.PNG)
 
-### Searching by Vendor using the Reports Menu
-![Searching by Vendor](imgs/VendorSearch.PNG)
+### Ordering a Drink
+![Searching by Vendor](imgs/Step3.PNG)
 
-## Unique Feature: Table Format
-My Financial Tracker program has a unique display of the table.
-![Unique Feature](imgs/Unique%20Feature.PNG)
+### Ordering Chips
+![Searching by Vendor](imgs/step4.PNG)
+
+### Preview of Receipt
+![Searching by Vendor](imgs/step5.PNG)
+
+### Receipt Creation
+![Searching by Vendor](imgs/step6.PNG)
+
+## Unique Feature: Model View Controller
+I tried to force myself to learn about Model View Controller and Services as I worked on this project.
+![Unique Feature](imgs/mvc.PNG)
 
 
 ## Future Work
