@@ -12,7 +12,14 @@ public class Chips implements IPriceable {
 
     @Override
     public String toString() {
-        return type;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Chips: ");
+        sb.append(type).append(" - ");
+
+        sb.append("Price: $").append(getPrice().setScale(2, BigDecimal.ROUND_HALF_UP));
+
+        return sb.toString();
     }
 
     public BigDecimal getPrice() {

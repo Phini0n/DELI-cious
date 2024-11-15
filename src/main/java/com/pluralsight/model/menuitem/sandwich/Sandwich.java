@@ -31,6 +31,43 @@ public class Sandwich implements IPriceable {
 
     // TODO: Include costs of all things inside sandwich.
     public BigDecimal getPrice() {
-        return Sandwich.SIZE_PRICES.get(size);
+        if (toppings.isEmpty()) {
+            return Sandwich.SIZE_PRICES.get(size);
+        } else {
+            BigDecimal toppingPrice = Sandwich.SIZE_PRICES.get(size);
+            for (Topping topping : toppings) {
+                toppingPrice = toppingPrice.add(topping.getPrice());
+                return toppingPrice;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        // Sandwich
+        sb.append("Sandwich: ").append(size.sandwichSizeName);
+        sb.append(isToasted ? " Toasted " : " ");
+        sb.append(bread).append("bread | ");
+
+        // Toppings
+        if (!toppings.isEmpty()) {
+            sb.append("Toppings: ");
+            for (int i = 0; i < toppings.size(); i++) {
+                sb.append(toppings.get(i).getToppingName());
+                if (i != toppings.size() - 1) {
+                    sb.append(", ");
+                }
+            }
+        } else {
+            sb.append("No toppings");
+        }
+
+        // Price
+        sb.append(" - Price: $").append(getPrice().setScale(2, BigDecimal.ROUND_HALF_UP));
+
+        return sb.toString();
     }
 }

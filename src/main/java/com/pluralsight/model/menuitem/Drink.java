@@ -25,7 +25,16 @@ public class Drink implements IPriceable {
 
     @Override
     public String toString() {
-        return this.itemSize + " " + this.flavor;
+        StringBuilder sb = new StringBuilder();
+
+        // Drink details
+        sb.append("Drink: ").append(itemSize).append(" ");
+        sb.append(flavor).append(" - ");
+
+        // Price
+        sb.append("Price: $").append(getPrice().setScale(2, BigDecimal.ROUND_HALF_UP));
+
+        return sb.toString();
     }
 
     public BigDecimal getPrice() {
