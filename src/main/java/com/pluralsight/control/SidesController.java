@@ -5,6 +5,8 @@ import com.pluralsight.model.menuitem.Chips;
 import com.pluralsight.model.menuitem.Drink;
 import com.pluralsight.view.Display;
 
+import java.util.Arrays;
+
 public class SidesController {
     private final Display display = new Display();
 
@@ -19,28 +21,29 @@ public class SidesController {
         while (true) {
             display.showMessage("Enter: ");
             try {
-                String input = display.getUserString().trim();
+                String entry = display.getUserString().trim();
 
-                if (input.isEmpty()) {
+                if (entry.isEmpty()) {
                     display.showMessageLine("Input is empty. Please try again, or enter 0 to exit.");
                     continue;
                 }
 
-                String[] entry = input.split(" ");
+                String[] entries = entry.split(" ");
 
-                if (entry.length == 2) {
-                    Size size = Size.standardSizeFromString(entry[0]);
+                if (entries.length == 2) {
+                    Size size = Size.standardSizeFromString(entries[0]);
 
                     // Checking if size is correct
                     if (size != null) {
-                        return new Drink(size, entry[1]);
+                        display.showMessageLine("Added " + entry);
+                        return new Drink(size, entries[1]);
                     } else {
                         display.showMessageLine("Our sizes are Small, Medium, and Large. " +
                                 "Please try again, or enter 0 to exit.");
                     }
 
                     // Checking if user wants to exit
-                } else if (entry[0].equals("0")) {
+                } else if (entries[0].equals("0")) {
                     display.showMessageLine("Returning to Order menu.");
                     return null;
 
@@ -70,6 +73,7 @@ public class SidesController {
             display.showMessageLine("Returning to Order menu.");
             return null;
         } else {
+            display.showMessageLine("Added " + entry);
             return new Chips(entry);
         }
     }

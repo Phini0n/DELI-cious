@@ -3,39 +3,34 @@ package com.pluralsight.control;
 import com.pluralsight.model.Order;
 import com.pluralsight.model.menuitem.Chips;
 import com.pluralsight.model.menuitem.Drink;
-import com.pluralsight.model.Size;
 import com.pluralsight.model.menustate.MenuState;
-import com.pluralsight.model.menustate.Observer;
-import com.pluralsight.service.MenuStateManager;
 import com.pluralsight.view.Display;
 
-public class OrderController implements Observer {
+public class OrderController {
     private final Order order;
     private final Display display;
-    private final MenuStateManager stateManager;
     private final SidesController sidesController;
-    public OrderController(MenuStateManager stateManager, SidesController sidesController) {
-        this.stateManager = stateManager;
-        this.sidesController = sidesController;
+    private MenuState menuState;
+    private final SandwichController sandwichController;
+    public OrderController() {
+        this.sidesController = new SidesController();
+        this.sandwichController = new SandwichController(menuState);
         this.display = new Display();
         this.order = new Order();
-        stateManager.addObserver(this);
+        this.menuState = MenuState.HOME_SCREEN;
     }
-
-    /**
-     * init() initializes the order used within the following method(s).
-     */
 
     public void display() {
         display.showMessageLine("Welcome to the DELI-cious Deli!");
-        stateManager.setMenuState(MenuState.HOME_SCREEN);
+        handleMenus();
     }
 
     private void handleMenus() {
         boolean running = true;
         while (running) {
+            display.showMenu(menuState);
             int choice = display.getUserInt();
-            switch (stateManager.getMenuState()) {
+            switch (menuState) {
                 case HOME_SCREEN -> handleHomeScreen(choice);
                 case ORDER_SCREEN -> handleOrderScreen(choice);
             }
@@ -44,7 +39,7 @@ public class OrderController implements Observer {
 
     private void handleHomeScreen(int choice) {
         switch (choice) {
-            case 1 -> stateManager.setMenuState(MenuState.ORDER_SCREEN);
+            case 1 -> menuState = MenuState.ORDER_SCREEN;
             case 0 -> exitProgram();
             default -> display.showMessageLine("Invalid entry, returning to home screen.");
         }
@@ -67,7 +62,7 @@ public class OrderController implements Observer {
         if (newDrink != null) {
             order.addDrink(newDrink);
         }
-        stateManager.setMenuState(MenuState.ORDER_SCREEN);
+        menuState = MenuState.ORDER_SCREEN;
     }
 
     private void processChips() {
@@ -75,6 +70,7 @@ public class OrderController implements Observer {
         if (newChips != null) {
             order.addChips(newChips);
         }
+        menuState = MenuState.ORDER_SCREEN;
     }
 
     private void processCheckout() {
@@ -90,7 +86,7 @@ public class OrderController implements Observer {
                 display.showMessageLine("Your receipt was created in: ");
                 break;
             case 0:
-                stateManager.setMenuState(MenuState.ORDER_SCREEN);
+                menuState = MenuState.ORDER_SCREEN;
                 break;
             default:
                 display.showMessageLine("\nInvalid entry, returning to order screen.");
@@ -107,11 +103,11 @@ public class OrderController implements Observer {
                 // TODO: DELETE ORDER HERE
                 display.showMessageLine ("\nReturning to home menu . . .");
                 order.orderClear();
-                stateManager.setMenuState(MenuState.HOME_SCREEN);
+                menuState = MenuState.HOME_SCREEN;
                 break;
             case "n":
                 display.showMessageLine("\nYour order may resume.");
-                stateManager.setMenuState(MenuState.ORDER_SCREEN);
+                menuState = MenuState.ORDER_SCREEN;
                 break;
             default:
                 display.showMessageLine("\nInvalid entry, returning to order screen.");
@@ -120,7 +116,7 @@ public class OrderController implements Observer {
     }
 
     private void processCustomSandwich() {
-
+        sandwichController.initializeSandwich();
     }
 
     private void processSignatureSandwich() {
@@ -129,11 +125,6 @@ public class OrderController implements Observer {
 
     private void exitProgram() {
         display.showMessage("Thank you! Exiting program . . .");
-    }
-
-    @Override
-    public void update(MenuState menuState) {
-        display.showMenu(menuState);
-        handleMenus();
+        System.exit(0);
     }
 }

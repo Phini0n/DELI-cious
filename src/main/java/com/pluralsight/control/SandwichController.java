@@ -1,33 +1,28 @@
 package com.pluralsight.control;
 
+import com.pluralsight.model.menuitem.sandwich.toppings.*;
 import com.pluralsight.model.menustate.MenuState;
 import com.pluralsight.model.Size;
 import com.pluralsight.model.menuitem.sandwich.Sandwich;
-import com.pluralsight.model.menuitem.sandwich.toppings.Topping;
-import com.pluralsight.model.menustate.Observer;
-import com.pluralsight.service.MenuStateManager;
 import com.pluralsight.view.Display;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class SandwichController implements Observer {
+public class SandwichController {
     private Display display = new Display();
     private MenuState menuState;
-    private MenuStateManager stateManager;
-
     // Sandwich Variables
+
     Sandwich finalSandwich;
-    private Size sandwichSize;
+    private Size sandwichSize = Size.SMALL;
     private boolean isToasted;
     private boolean isCancelled; // Determines if the initialize process will continue, or not.
     private boolean isSignature; // Determines if this Sandwich is signature, or not.
     private String bread;
     private List<Topping> toppings = new ArrayList<Topping>();
 
-    public SandwichController(MenuStateManager stateManager) {
-        this.stateManager = stateManager;
-        stateManager.addObserver(this);
+    public SandwichController(MenuState menuState) {
+        this.menuState = menuState;
     }
 
     // Using Custom Sandwich
@@ -39,7 +34,7 @@ public class SandwichController implements Observer {
         processBreadRequest();
 
         // Initial Screen
-        stateManager.setMenuState(MenuState.SANDWICH_SCREEN);
+        menuState = MenuState.SANDWICH_SCREEN;
 
         while (true) {
 
@@ -79,7 +74,7 @@ public class SandwichController implements Observer {
                 processSizeRequest();
                 break;
             case 3: // Toppings
-                stateManager.setMenuState(MenuState.TOPPINGS_SCREEN);
+                menuState = MenuState.TOPPINGS_SCREEN;
                 break;
             case 0: // Exit
                 display.clearBuffer();
@@ -90,7 +85,7 @@ public class SandwichController implements Observer {
                         // TODO: DELETE ORDER HERE
                         display.showMessageLine("\nReturning to order menu . . .");
                         isCancelled = true;
-                        stateManager.setMenuState(MenuState.ORDER_SCREEN);
+                        menuState = MenuState.ORDER_SCREEN;
                         break;
                     case "n":
                         display.showMessageLine("\nYour sandwich building may resume.");
@@ -107,9 +102,15 @@ public class SandwichController implements Observer {
 
     public void handleToppingsScreen(int choice) {
         switch (choice) {
-            case 1: // New Order
+            case 1: // Meat
                 break;
-            case 0: // Exit
+            case 2: // Cheese
+                break;
+            case 3: // Other Toppings
+                break;
+            case 4: // Sauces
+                break;
+            case 0: // Back
                 display.showMessage("Thank you! Exiting program. . .");
                 break;
             default:
@@ -158,7 +159,7 @@ public class SandwichController implements Observer {
     private void processIsToastedRequest() {
         if (!isCancelled) {
             display.showMessage("""
-                    Would you like your bread toasted? (Y/N):
+                    Would you like your bread toasted? (Y/N)
                     Enter 0 to stop Sandwich Building.
                                     
                     """);
@@ -186,7 +187,7 @@ public class SandwichController implements Observer {
     private void processBreadRequest() {
         if (!isCancelled) {
             display.showMessageLine("""
-                    Enter your bread (White, Wheat, Rye, Wrap):
+                    Enter your bread (White, Wheat, Rye, Wrap)
                     Enter 0 to stop Sandwich Building.
                                     
                     """);
@@ -239,10 +240,5 @@ public class SandwichController implements Observer {
         return "\nYour current sandwich:\n" +
                 signatureStatus + sandwichSize.sandwichSizeName + toastedStatus + bread +
                 " with " + allToppings.toString();
-    }
-
-    @Override
-    public void update(MenuState menuState) {
-        this.menuState = menuState;
     }
 }

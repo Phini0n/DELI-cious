@@ -11,10 +11,9 @@ public class Topping implements IPriceable {
         this.toppingName = toppingName;
     }
 
-    @Override
-    public String toString() {
-        return this.toppingName;
-    };
+    public String getToppingName() {
+        return toppingName;
+    }
 
     public BigDecimal getPrice() {
         return BigDecimal.ZERO;
