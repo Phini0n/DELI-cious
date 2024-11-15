@@ -26,13 +26,15 @@ The receipt file is written to the receipts/ directory with a "yyyyMMdd-HHmmss" 
 
 
 ## User Stories
-> - As a user, I want to have an option to place an order so that I can start choosing items to purchase.
-> - As a user, I want to have an option to exit the application so that I can leave without placing an order if I change my mind.
-> - As a user, I want to be able to pick between items like sandwich, drink, and chips so that I can customize my order with the available options.
-> - As a user, I want to be able to customize my sandwich by selecting bread type, adding meat, cheese, and other toppings, and choosing sauces so that I can create a sandwich to my taste.
-> - As a user, I want to be able to pick a drink so that I can include a beverage with my meal.
-> - As a user, I want to be able to see the items I’ve picked and confirm them so that I can review my order before finalizing.
-> - As a user, I want to be able to place a new order or leave after completing an order so that I can start a fresh order or exit the application.
+> - As a user, I would like different sizes, so I can buy what fits my appetite at the time.
+> - As a customer, I want to be able to have a sandwich so that it can have various sizes, bread types, be toasted, and toppings.
+> - As a user, I would like to have various toppings including meat, vegetables, and sauces, so that I can customize my sandwich to my liking.
+> - As a user I would like to have the ability to order a drink of various sizes, so that I can have something on the side to go with my order.
+> - As a user I would like to be able to see my Order in an organized and calculated way, so that I know exactly what I am spending money on.
+> - As a user I would like the ability to order chips so that I can have something on the side of my Deli-cious sandwich.
+> - As a user I would like to know what all toppings are available, so that I can make an informed choice on what to put on my sandwich.
+> - As a user I would like to navigate easy to read menus, so that I can get to where I need effectively and simply.
+> - As a user I would like to have my receipt saved to a file that I can easily access, so that I can retrieve this information later for personal accounting.
 
 ## Setup
 
