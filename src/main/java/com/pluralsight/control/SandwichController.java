@@ -35,11 +35,29 @@ public class SandwichController {
         processSizeRequest();
         processIsToastedRequest();
         processBreadRequest();
+        startSandwichBuilder();
+    }
 
+    // Using Signature Sandwich
+    public void initializeSandwich(Sandwich sandwich) {
+        sandwichSize = sandwich.getSize();
+        isToasted = sandwich.isToasted();
+        isSignature = true;
+        bread = sandwich.getBread();
+        toppings = sandwich.getToppings();
+        startSandwichBuilder();
+    }
+
+    public void startSandwichBuilder() {
+        toppings.clear();
         // Initial Screen
         menuState = MenuState.SANDWICH_SCREEN;
 
         while (true) {
+
+            if (menuState == MenuState.ORDER_SCREEN) {
+                return;
+            }
 
             if (isCancelled) {
                 display.showMessage("Sandwich process was cancelled. Returning to Order menu.");
@@ -57,13 +75,12 @@ public class SandwichController {
             switch (menuState) {
                 case SANDWICH_SCREEN -> handleSandwichScreen(choice);
                 case TOPPINGS_SCREEN -> handleToppingsScreen(choice);
+                case ORDER_SCREEN -> {
+                    display.clearBuffer();
+                    return;
+                }
             }
         }
-    }
-
-    // Using Signature Sandwich
-    public void initializeSandwich(Sandwich sandwich) {
-        // TODO: Implement this.
     }
 
     private void handleSandwichScreen(int choice) {
@@ -79,19 +96,30 @@ public class SandwichController {
             case 3: // Toppings
                 menuState = MenuState.TOPPINGS_SCREEN;
                 break;
-            case 4: // Finish Sandwich
+            case 4: // Remove Topping
+                display.showMessageLine("Would you like to remove a topping?\n" +
+                "Enter 0 to exit.");
+                display.showMessageLine(showAllToppings((ArrayList<Topping>) toppings));
+                display.showMessage("Enter: ");
+
+                display.clearBuffer();
+                String input = display.getUserString();
+                if (input != null) {
+                    removeToppingsByName(input);
+                }
+
+                break;
+            case 5: // Finish Sandwich
                 finalSandwich = new Sandwich(sandwichSize, isToasted, bread, (ArrayList<Topping>) toppings);
                 display.showMessage("Your sandwich was added to your order.");
                 menuState = MenuState.ORDER_SCREEN;
-                isCancelled = true;
                 break;
             case 0: // Exit
                 display.clearBuffer();
-                display.showMessageLine("\nAre you sure you want to cancel your sandwich and return to the Home Screen? (y/n)");
+                display.showMessageLine("\nAre you sure you want to cancel your sandwich and return to the Order Screen? (y/n)");
                 display.showMessage("\nEnter: ");
                 switch (display.getUserString()) {
                     case "y":
-                        // TODO: DELETE ORDER HERE
                         display.showMessageLine("\nReturning to order menu . . .");
                         isCancelled = true;
                         menuState = MenuState.ORDER_SCREEN;
@@ -241,6 +269,22 @@ public class SandwichController {
         return "\nYour current sandwich:\n" +
                 signatureStatus + sandwichSize.sandwichSizeName + toastedStatus + bread +
                 " with " + allToppings.toString();
+    }
+
+    private String showAllToppings(ArrayList<Topping> toppings) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        for (int i = 0; i < toppings.size(); i++) {
+            sb.append(toppings.get(i).getToppingName());
+            if (i != toppings.size()) {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    private void removeToppingsByName(String searchedTopping) {
+        toppings.removeIf(topping -> topping.getToppingName().equals(searchedTopping));
     }
 
     public Sandwich getFinalSandwich() {

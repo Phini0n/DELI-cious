@@ -13,4 +13,5 @@ public abstract class PremiumTopping extends Topping {
         this.size = size;
     }
 
+    public abstract BigDecimal getPrice(Size size);
 }

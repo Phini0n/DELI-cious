@@ -15,11 +15,11 @@ public class Cheese extends PremiumTopping {
 
     public Cheese(String toppingName, Size size) {
         super(toppingName, size);
-        this.price = SIZE_PRICES.get(size);
     }
 
     @Override
-    public BigDecimal getPrice() {
+    public BigDecimal getPrice(Size size) {
+        price = SIZE_PRICES.get(size);
         return price;
     }
 }

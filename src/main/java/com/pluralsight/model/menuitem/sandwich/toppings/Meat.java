@@ -19,7 +19,8 @@ public class Meat extends PremiumTopping {
     }
 
     @Override
-    public BigDecimal getPrice() {
+    public BigDecimal getPrice(Size size) {
+        price = SIZE_PRICES.get(size);
         return price;
     }
 }

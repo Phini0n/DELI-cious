@@ -27,8 +27,7 @@ public class OrderController {
     }
 
     private void handleMenus() {
-        boolean running = true;
-        while (running) {
+        while (true) {
             display.showMenu(menuState);
             int choice = display.getUserInt();
             switch (menuState) {

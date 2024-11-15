@@ -2,6 +2,7 @@ package com.pluralsight.model.menuitem.sandwich;
 
 import com.pluralsight.model.Size;
 import com.pluralsight.model.menuitem.IPriceable;
+import com.pluralsight.model.menuitem.sandwich.toppings.PremiumTopping;
 import com.pluralsight.model.menuitem.sandwich.toppings.Topping;
 
 import java.math.BigDecimal;
@@ -36,11 +37,33 @@ public class Sandwich implements IPriceable {
         } else {
             BigDecimal toppingPrice = Sandwich.SIZE_PRICES.get(size);
             for (Topping topping : toppings) {
-                toppingPrice = toppingPrice.add(topping.getPrice());
-                return toppingPrice;
+                if (topping instanceof PremiumTopping) {
+                    PremiumTopping topping1 = (PremiumTopping) topping;
+                    toppingPrice = toppingPrice.add(topping1.getPrice(size));
+                }
             }
+            return toppingPrice;
         }
-        return null;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public boolean isToasted() {
+        return isToasted;
+    }
+
+    public String getBread() {
+        return bread;
+    }
+
+    public List<Topping> getToppings() {
+        return toppings;
     }
 
     @Override
@@ -50,7 +73,7 @@ public class Sandwich implements IPriceable {
         // Sandwich
         sb.append("Sandwich: ").append(size.sandwichSizeName);
         sb.append(isToasted ? " Toasted " : " ");
-        sb.append(bread).append("bread | ");
+        sb.append(bread).append(" bread | ");
 
         // Toppings
         if (!toppings.isEmpty()) {
