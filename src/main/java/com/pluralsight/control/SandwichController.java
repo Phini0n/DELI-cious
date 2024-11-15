@@ -5,6 +5,8 @@ import com.pluralsight.model.menustate.MenuState;
 import com.pluralsight.model.Size;
 import com.pluralsight.model.menuitem.sandwich.Sandwich;
 import com.pluralsight.view.Display;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +80,10 @@ public class SandwichController {
                 menuState = MenuState.TOPPINGS_SCREEN;
                 break;
             case 4: // Finish Sandwich
+                finalSandwich = new Sandwich(sandwichSize, isToasted, bread, (ArrayList<Topping>) toppings);
+                display.showMessage("Your sandwich was added to your order.");
+                menuState = MenuState.ORDER_SCREEN;
+                isCancelled = true;
                 break;
             case 0: // Exit
                 display.clearBuffer();
@@ -220,7 +226,7 @@ public class SandwichController {
         }
     }
 
-    public String showCurrentSandwich() {
+    private String showCurrentSandwich() {
         StringBuilder allToppings = new StringBuilder();
         for (Topping topping : toppings) {
             if (topping != null) {
@@ -235,5 +241,9 @@ public class SandwichController {
         return "\nYour current sandwich:\n" +
                 signatureStatus + sandwichSize.sandwichSizeName + toastedStatus + bread +
                 " with " + allToppings.toString();
+    }
+
+    public Sandwich getFinalSandwich() {
+        return finalSandwich;
     }
 }

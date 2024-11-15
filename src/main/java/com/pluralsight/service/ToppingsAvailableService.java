@@ -83,4 +83,34 @@ public class ToppingsAvailableService {
         }
         return null;
     }
+
+    public Cheese getCheeseTopping(String searchedCheese) {
+        ArrayList<Cheese> cheeses = (ArrayList<Cheese>) cheeseToppingsAvailable;
+        for (Cheese cheese : cheeses) {
+            if (cheese.getToppingName().equals(searchedCheese)) {
+                return cheese;
+            }
+        }
+        return null;
+    }
+
+    public Topping getRegularTopping(String searchedTopping) {
+        ArrayList<Topping> toppings = (ArrayList<Topping>) regularToppingsAvailable;
+        for (Topping topping : toppings) {
+            if (topping.getToppingName().equals(searchedTopping)) {
+                return topping;
+            }
+        }
+        return null;
+    }
+
+    public Sauce getSauce(String searchedSauce) {
+        ArrayList<Sauce> sauces = (ArrayList<Sauce>) saucesAvailable;
+        for (Sauce sauce : sauces) {
+            if (sauce.getToppingName().equals(searchedSauce)) {
+                return sauce;
+            }
+        }
+        return null;
+    }
 }

@@ -3,6 +3,7 @@ package com.pluralsight.control;
 import com.pluralsight.model.Order;
 import com.pluralsight.model.menuitem.Chips;
 import com.pluralsight.model.menuitem.Drink;
+import com.pluralsight.model.menuitem.sandwich.Sandwich;
 import com.pluralsight.model.menustate.MenuState;
 import com.pluralsight.view.Display;
 
@@ -117,6 +118,10 @@ public class OrderController {
 
     private void processCustomSandwich() {
         sandwichController.initializeSandwich();
+        Sandwich sandwich = sandwichController.getFinalSandwich();
+        if (sandwich != null) {
+            order.addSandwich(sandwich);
+        }
     }
 
     private void processSignatureSandwich() {

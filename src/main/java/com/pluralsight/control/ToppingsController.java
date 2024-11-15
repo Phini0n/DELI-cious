@@ -42,22 +42,61 @@ public class ToppingsController {
                     }
                 }
 
-                break;
             case 2: // Cheese
                 List<Cheese> cheeses = toppingsAvailableService.getCheeseToppingsAvailable();
                 display.showMessage(toppingsAvailableService.toppingsToNumberedList(cheeses));
-                display.showMessage("0) Back\nEnter: \n");
-                break;
+                display.showMessage("0) Back\nEnter: ");
+
+                input = display.getUserInt();
+                switch (input) {
+                    case 1 -> { return toppingsAvailableService.getCheeseTopping("American"); }
+                    case 2 -> { return toppingsAvailableService.getCheeseTopping("Provolone"); }
+                    case 3 -> { return toppingsAvailableService.getCheeseTopping("Cheddar"); }
+                    case 4 -> { return toppingsAvailableService.getCheeseTopping("Swiss"); }
+                    case 0 -> {
+                        display.showMessageLine("\nReturning to Sandwich Menu\n");
+                        return null;
+                    }
+                }
             case 3: // Other Toppings
                 List<Topping> toppings = toppingsAvailableService.getRegularToppingsAvailable();
                 display.showMessage(toppingsAvailableService.toppingsToNumberedList(toppings));
-                display.showMessage("0) Back\nEnter: \n");
-                break;
+                display.showMessage("0) Back\nEnter: ");
+
+                input = display.getUserInt();
+                switch (input) {
+                    case 1 -> { return toppingsAvailableService.getRegularTopping("Lettuce"); }
+                    case 2 -> { return toppingsAvailableService.getRegularTopping("Peppers"); }
+                    case 3 -> { return toppingsAvailableService.getRegularTopping("Onion"); }
+                    case 4 -> { return toppingsAvailableService.getRegularTopping("Tomatoes"); }
+                    case 5 -> { return toppingsAvailableService.getRegularTopping("Jalapenos"); }
+                    case 6 -> { return toppingsAvailableService.getRegularTopping("Cucumbers"); }
+                    case 7 -> { return toppingsAvailableService.getRegularTopping("Pickles"); }
+                    case 8 -> { return toppingsAvailableService.getRegularTopping("Guacamole"); }
+                    case 9 -> { return toppingsAvailableService.getRegularTopping("Mushrooms"); }
+                    case 0 -> {
+                        display.showMessageLine("\nReturning to Sandwich Menu\n");
+                        return null;
+                    }
+                }
             case 4: // Sauces
                 List<Sauce> sauces = toppingsAvailableService.getSaucesAvailable();
                 display.showMessage(toppingsAvailableService.toppingsToNumberedList(sauces));
-                display.showMessage("0) Back\nEnter: \n");
-                break;
+                display.showMessage("0) Back\nEnter: ");
+
+                input = display.getUserInt();
+                switch (input) {
+                    case 1 -> { return toppingsAvailableService.getSauce("Mayo"); }
+                    case 2 -> { return toppingsAvailableService.getSauce("Mustard"); }
+                    case 3 -> { return toppingsAvailableService.getSauce("Ketchup"); }
+                    case 4 -> { return toppingsAvailableService.getSauce("Ranch"); }
+                    case 5 -> { return toppingsAvailableService.getSauce("Thousand Islands"); }
+                    case 6 -> { return toppingsAvailableService.getSauce("Vinaigrette"); }
+                    case 0 -> {
+                        display.showMessageLine("\nReturning to Sandwich Menu\n");
+                        return null;
+                    }
+                }
             case 0: // Back
                 display.showMessage("Thank you! Returning to sandwich menu. . .");
                 return null;
