@@ -10,7 +10,7 @@ public class Main {
         MenuStateManager stateManager = new MenuStateManager();
         SandwichController sandwichController = new SandwichController(stateManager);
         SidesController sidesController = new SidesController();
-        OrderController orderController = new OrderController(stateManager, sandwichController, sidesController);
+        OrderController orderController = new OrderController(stateManager, sidesController);
 
         orderController.display();
 

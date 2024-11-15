@@ -38,9 +38,10 @@ public class SandwichController implements Observer {
         processIsToastedRequest();
         processBreadRequest();
 
+        // Initial Screen
         stateManager.setMenuState(MenuState.SANDWICH_SCREEN);
-        while (true) {
 
+        while (true) {
 
             if (isCancelled) {
                 display.showMessage("Sandwich process was cancelled. Returning to Order menu.");
@@ -107,7 +108,6 @@ public class SandwichController implements Observer {
     public void handleToppingsScreen(int choice) {
         switch (choice) {
             case 1: // New Order
-
                 break;
             case 0: // Exit
                 display.showMessage("Thank you! Exiting program. . .");

@@ -6,7 +6,6 @@ import com.pluralsight.model.menuitem.Drink;
 import com.pluralsight.view.Display;
 
 public class SidesController {
-
     private final Display display = new Display();
 
     public Drink processDrinkRequest() {

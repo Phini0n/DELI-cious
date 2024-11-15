@@ -1,5 +1,8 @@
 package com.pluralsight.service;
 
+import com.pluralsight.model.menuitem.Chips;
+import com.pluralsight.model.menuitem.Drink;
+import com.pluralsight.model.menuitem.sandwich.Sandwich;
 import com.pluralsight.model.menustate.MenuState;
 import com.pluralsight.model.menustate.Observer;
 import com.pluralsight.model.menustate.Subject;
@@ -22,6 +25,10 @@ public class MenuStateManager implements Subject {
         for (Observer observer : observerList) {
             observer.update(menuState);
         }
+    }
+
+    public MenuState getMenuState() {
+        return this.menuState;
     }
 
     public void setMenuState(MenuState menuState) {

@@ -10,50 +10,32 @@ import com.pluralsight.service.MenuStateManager;
 import com.pluralsight.view.Display;
 
 public class OrderController implements Observer {
-    private Order order;
-    private Display display;
-    private MenuState menuState;
+    private final Order order;
+    private final Display display;
     private final MenuStateManager stateManager;
-    private final SandwichController sandwichController;
     private final SidesController sidesController;
-
-    public OrderController(MenuStateManager stateManager, SandwichController sandwichController,
-                           SidesController sidesController) {
+    public OrderController(MenuStateManager stateManager, SidesController sidesController) {
         this.stateManager = stateManager;
-        this.sandwichController = sandwichController;
         this.sidesController = sidesController;
+        this.display = new Display();
+        this.order = new Order();
         stateManager.addObserver(this);
     }
 
     /**
      * init() initializes the order used within the following method(s).
      */
-    private void init(){
-        order = new Order();
-        display = new Display();
-        stateManager.addObserver(this);
-    }
 
     public void display() {
-        // Initialize variables
-        init();
-
-        handleDisplay();
+        display.showMessageLine("Welcome to the DELI-cious Deli!");
+        stateManager.setMenuState(MenuState.HOME_SCREEN);
     }
 
-    private void handleDisplay() {
-        boolean firstRun = true;
-        stateManager.setMenuState(MenuState.HOME_SCREEN);
-        while (true) {
-            if(firstRun) {
-                display.showMessage("\nHello, welcome to the DELI-cious deli program!\n");
-                firstRun = false;
-            }
-
-            display.showMenu(menuState);
-
+    private void handleMenus() {
+        boolean running = true;
+        while (running) {
             int choice = display.getUserInt();
-            switch (menuState) {
+            switch (stateManager.getMenuState()) {
                 case HOME_SCREEN -> handleHomeScreen(choice);
                 case ORDER_SCREEN -> handleOrderScreen(choice);
             }
@@ -62,59 +44,45 @@ public class OrderController implements Observer {
 
     private void handleHomeScreen(int choice) {
         switch (choice) {
-            case 1: // New Order
-                stateManager.setMenuState(MenuState.ORDER_SCREEN);
-                break;
-            case 0: // Exit
-                display.showMessage("Thank you! Exiting program. . .");
-                System.exit(0);
-                break;
-            default:
-                display.showMessageLine("\nInvalid entry, returning to home screen..");
+            case 1 -> stateManager.setMenuState(MenuState.ORDER_SCREEN);
+            case 0 -> exitProgram();
+            default -> display.showMessageLine("Invalid entry, returning to home screen.");
         }
     }
 
     private void handleOrderScreen(int choice) {
         switch (choice) {
-
-            case 1: // Add Signature Sandwich
-                processSignatureSandwichRequest();
-                break;
-            case 2: // Add Custom Sandwich
-                processCustomSandwichRequest();
-                break;
-            case 3: // Add Drink
-                Drink newDrink = sidesController.processDrinkRequest();
-                if (newDrink != null) {
-                    order.addDrink(newDrink);
-                }
-                break;
-            case 4: // Add Chips
-                Chips newChips = sidesController.processChipsRequest();
-                if (newChips != null) {
-                    order.addChips(newChips);
-                }
-                break;
-            case 5: // Checkout
-                processCheckoutRequest();
-                break;
-            case 0: // Cancel Order
-                processCancelRequest();
-                break;
-
-            default:
-                display.showMessageLine("\nInvalid entry, returning to order screen.");
+            case 1 -> processSignatureSandwich();
+            case 2 -> processCustomSandwich();
+            case 3 -> processDrink();
+            case 4 -> processChips();
+            case 5 -> processCheckout();
+            case 0 -> cancelOrder();
+            default -> display.showMessageLine("Invalid entry, returning to order screen.");
         }
     }
 
-    private void processCustomSandwichRequest() {
-        sandwichController.initializeSandwich();
+    private void processDrink() {
+        Drink newDrink = sidesController.processDrinkRequest();
+        if (newDrink != null) {
+            order.addDrink(newDrink);
+        }
+        stateManager.setMenuState(MenuState.ORDER_SCREEN);
     }
 
-    private void processCheckoutRequest() {
+    private void processChips() {
+        Chips newChips = sidesController.processChipsRequest();
+        if (newChips != null) {
+            order.addChips(newChips);
+        }
+    }
+
+    private void processCheckout() {
         display.showMessageLine(order.toString()); // TODO: SHOW ORDER DETAILS AND PRICE
-        display.showMessageLine("\n1) Confirm Order\n" +
-                "0) Return to Order Menu");
+        display.showMessageLine("""
+
+                1) Confirm Order
+                0) Return to Order Menu""");
         display.showMessage("\nEnter: ");
         switch (display.getUserInt()) {
             case 1:
@@ -122,6 +90,7 @@ public class OrderController implements Observer {
                 display.showMessageLine("Your receipt was created in: ");
                 break;
             case 0:
+                stateManager.setMenuState(MenuState.ORDER_SCREEN);
                 break;
             default:
                 display.showMessageLine("\nInvalid entry, returning to order screen.");
@@ -129,10 +98,10 @@ public class OrderController implements Observer {
         }
     }
 
-    private void processCancelRequest() {
-        display.clearBuffer();
+    private void cancelOrder() {
         display.showMessageLine("\nAre you sure you want to cancel your order and return to the Home Screen? (y/n)");
         display.showMessage("\nEnter: ");
+        display.clearBuffer();
         switch (display.getUserString()) {
             case "y":
                 // TODO: DELETE ORDER HERE
@@ -142,6 +111,7 @@ public class OrderController implements Observer {
                 break;
             case "n":
                 display.showMessageLine("\nYour order may resume.");
+                stateManager.setMenuState(MenuState.ORDER_SCREEN);
                 break;
             default:
                 display.showMessageLine("\nInvalid entry, returning to order screen.");
@@ -149,12 +119,21 @@ public class OrderController implements Observer {
         }
     }
 
-    private void processSignatureSandwichRequest() {
+    private void processCustomSandwich() {
 
+    }
+
+    private void processSignatureSandwich() {
+
+    }
+
+    private void exitProgram() {
+        display.showMessage("Thank you! Exiting program . . .");
     }
 
     @Override
     public void update(MenuState menuState) {
-        this.menuState = menuState;
+        display.showMenu(menuState);
+        handleMenus();
     }
 }
