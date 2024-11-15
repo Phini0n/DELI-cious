@@ -1,10 +1,7 @@
 package com.pluralsight.service;
 
 import com.pluralsight.model.Size;
-import com.pluralsight.model.menuitem.sandwich.toppings.Cheese;
-import com.pluralsight.model.menuitem.sandwich.toppings.Meat;
-import com.pluralsight.model.menuitem.sandwich.toppings.Sauce;
-import com.pluralsight.model.menuitem.sandwich.toppings.Topping;
+import com.pluralsight.model.menuitem.sandwich.toppings.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,5 +60,27 @@ public class ToppingsAvailableService {
 
     public List<Sauce> getSaucesAvailable() {
         return saucesAvailable;
+    }
+
+    public <T extends Topping> String toppingsToNumberedList(List<T> toppings) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        for (int i = 0; i < toppings.size(); i++) {
+            sb.append(i+1).append(") ").append(toppings.get(i).getToppingName());
+            if (i != toppings.size()) {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    public Meat getMeatTopping(String searchedMeat) {
+        ArrayList<Meat> meats = (ArrayList<Meat>) meatToppingsAvailable;
+        for (Meat meat : meats) {
+            if (meat.getToppingName().equals(searchedMeat)) {
+                return meat;
+            }
+        }
+        return null;
     }
 }

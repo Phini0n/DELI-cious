@@ -11,8 +11,8 @@ import java.util.List;
 public class SandwichController {
     private Display display = new Display();
     private MenuState menuState;
+    private ToppingsController toppingsController;
     // Sandwich Variables
-
     Sandwich finalSandwich;
     private Size sandwichSize = Size.SMALL;
     private boolean isToasted;
@@ -23,6 +23,7 @@ public class SandwichController {
 
     public SandwichController(MenuState menuState) {
         this.menuState = menuState;
+        this.toppingsController = new ToppingsController(menuState);
     }
 
     // Using Custom Sandwich
@@ -43,7 +44,7 @@ public class SandwichController {
                 return;
             }
 
-            if (!isCancelled) {
+            if (!isCancelled && menuState == MenuState.SANDWICH_SCREEN) {
                 display.showMessageLine(showCurrentSandwich());
             }
 
@@ -76,6 +77,8 @@ public class SandwichController {
             case 3: // Toppings
                 menuState = MenuState.TOPPINGS_SCREEN;
                 break;
+            case 4: // Finish Sandwich
+                break;
             case 0: // Exit
                 display.clearBuffer();
                 display.showMessageLine("\nAre you sure you want to cancel your sandwich and return to the Home Screen? (y/n)");
@@ -101,21 +104,11 @@ public class SandwichController {
     }
 
     public void handleToppingsScreen(int choice) {
-        switch (choice) {
-            case 1: // Meat
-                break;
-            case 2: // Cheese
-                break;
-            case 3: // Other Toppings
-                break;
-            case 4: // Sauces
-                break;
-            case 0: // Back
-                display.showMessage("Thank you! Exiting program. . .");
-                break;
-            default:
-                display.showMessageLine("\nInvalid entry, returning to home screen..");
+        Topping newTopping = toppingsController.handleToppingsScreen(choice);
+        if (newTopping != null) {
+            toppings.add(newTopping);
         }
+        menuState = MenuState.SANDWICH_SCREEN;
     }
 
     private void processSizeRequest() {
@@ -230,7 +223,9 @@ public class SandwichController {
     public String showCurrentSandwich() {
         StringBuilder allToppings = new StringBuilder();
         for (Topping topping : toppings) {
-            allToppings.append(topping).append(" ");
+            if (topping != null) {
+                allToppings.append(topping.getToppingName()).append(" ");
+            }
         }
 
         String toastedStatus = isToasted ? " toasted " : " ";

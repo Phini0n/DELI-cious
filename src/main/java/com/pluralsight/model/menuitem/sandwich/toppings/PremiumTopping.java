@@ -12,4 +12,5 @@ public abstract class PremiumTopping extends Topping {
         super(toppingName);
         this.size = size;
     }
+
 }
