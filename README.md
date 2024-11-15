@@ -1,6 +1,6 @@
 # DELI-cious Command Line Interface
 ## Class Diagram
-![classDiagram](imgs/classesdiagram.PNG)
+![classesdiagram](imgs/classesdiagram.png)
 
 ## Project Description
 
