@@ -15,10 +15,13 @@ public class OrderController implements Observer {
     private MenuState menuState;
     private final MenuStateManager stateManager;
     private final SandwichController sandwichController;
+    private final SidesController sidesController;
 
-    public OrderController(MenuStateManager stateManager, SandwichController sandwichController) {
+    public OrderController(MenuStateManager stateManager, SandwichController sandwichController,
+                           SidesController sidesController) {
         this.stateManager = stateManager;
         this.sandwichController = sandwichController;
+        this.sidesController = sidesController;
         stateManager.addObserver(this);
     }
 
@@ -60,7 +63,7 @@ public class OrderController implements Observer {
     private void handleHomeScreen(int choice) {
         switch (choice) {
             case 1: // New Order
-                update(MenuState.ORDER_SCREEN);
+                stateManager.setMenuState(MenuState.ORDER_SCREEN);
                 break;
             case 0: // Exit
                 display.showMessage("Thank you! Exiting program. . .");
@@ -81,10 +84,16 @@ public class OrderController implements Observer {
                 processCustomSandwichRequest();
                 break;
             case 3: // Add Drink
-                processDrinkRequest();
+                Drink newDrink = sidesController.processDrinkRequest();
+                if (newDrink != null) {
+                    order.addDrink(newDrink);
+                }
                 break;
             case 4: // Add Chips
-                processChipsRequest();
+                Chips newChips = sidesController.processChipsRequest();
+                if (newChips != null) {
+                    order.addChips(newChips);
+                }
                 break;
             case 5: // Checkout
                 processCheckoutRequest();
@@ -95,72 +104,6 @@ public class OrderController implements Observer {
 
             default:
                 display.showMessageLine("\nInvalid entry, returning to order screen.");
-        }
-    }
-
-    private void processDrinkRequest() {
-        display.showMessageLine("""
-                Our Available Drink Sizes: Small, Medium, Large:
-                Please enter a size followed by your flavor. Ex: Small Cola
-                Enter 0 to stop ordering a Drink.
-                
-                """);
-        display.clearBuffer();
-        while (true) {
-            display.showMessage("Enter: ");
-            try {
-                String input = display.getUserString().trim();
-
-                if (input.isEmpty()) {
-                    display.showMessageLine("Input is empty. Please try again, or enter 0 to exit.");
-                    continue;
-                }
-
-                String[] entry = input.split(" ");
-
-                if (entry.length == 2) {
-                    Size size = Size.standardSizeFromString(entry[0]);
-
-                    // Checking if size is correct
-                    if (size != null) {
-                        order.addDrink(new Drink(size, entry[1]));
-                        return;
-                    } else {
-                        display.showMessageLine("Our sizes are Small, Medium, and Large. " +
-                                "Please try again, or enter 0 to exit.");
-                    }
-
-                // Checking if user wants to exit
-                } else if (entry[0].equals("0")) {
-                    display.showMessageLine("Returning to Order menu.");
-                    return;
-
-                } else {
-                    display.showMessageLine("\nError, wrong amount of arguments. " +
-                            "Please try again, or enter 0 to exit.");
-                }
-
-            } catch (Exception e) {
-                display.showMessageLine("\nError "  + e + " occurred with your input. " +
-                        "Please try again, or enter 0 to exit.");
-            }
-        }
-    }
-
-    private void processChipsRequest() {
-        display.showMessage("""
-                Please enter any flavor of chips you'd like.
-                Enter 0 to stop ordering Chips.
-                
-                Enter:\s""");
-
-        display.clearBuffer();
-
-        String entry = display.getUserString().trim();
-        if (entry.equals("0")) {
-            display.showMessageLine("Returning to Order menu.");
-        } else {
-            order.addChips(new Chips(entry));
         }
     }
 
@@ -194,6 +137,7 @@ public class OrderController implements Observer {
             case "y":
                 // TODO: DELETE ORDER HERE
                 display.showMessageLine ("\nReturning to home menu . . .");
+                order.orderClear();
                 stateManager.setMenuState(MenuState.HOME_SCREEN);
                 break;
             case "n":
