@@ -6,16 +6,22 @@ import com.pluralsight.view.Display;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FileManagementService {
 
     // TODO: SET FILENAME FORMAT TO yyyyMMdd-hhmmss.txt
-    private String timestamp = "";
+    private LocalDateTime timestamp;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
     private File FILE = new File("receipts/");
 
-    public String saveOrder(Order order, String timestamp) {
+    public String saveOrder(Order order) {
+        order.setTime();
+        String fileName = order.getTime().format(formatter);
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE + timestamp));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE + fileName));
+            bufferedWriter.write(order.toString());
         } catch (Exception e) {
             return "Error " + e;
         }
